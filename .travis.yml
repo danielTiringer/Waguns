@@ -31,7 +31,7 @@ before_script:
   - npm install
 
 script:
-  - npm run test -- --watch=false
+  - npm run test
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
