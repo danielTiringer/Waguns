@@ -36,7 +36,6 @@ class AuthenticationService {
       }
       const accessToken = jwt.sign({ userId: user.userId, role: user.role }, this.accTokSec, { expiresIn: `${accTokExp}` });
       const refreshToken = jwt.sign({ userId: user.userId, role: user.role }, this.refTokSec, { expiresIn: `${refTokExp}` });
-      console.log(accessToken)
       return res.json({ accessToken, refreshToken });
     });
   }
