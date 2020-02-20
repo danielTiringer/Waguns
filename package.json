@@ -4,7 +4,8 @@
   "description": "Reeent from us!",
   "main": "server.js",
   "scripts": {
-    "test": "npm run test"
+		"build": "npm --prefix ./client run build --prod",
+    "test": "npm --prefix ./client run test"
   },
   "author": "Volatile Sheep",
   "license": "ISC",

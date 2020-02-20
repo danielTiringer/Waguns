@@ -27,19 +27,15 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 before_script:
-  - cd client
   - npm install
 
 script:
-  - cd client
   - npm run test -- --watch=false
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    cd client
-    npm run build -prod;
+    npm run build;
     docker build -t danieltiringer/waguns -f Dockerfile .;
     echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
     docker push danieltiringer/waguns;
     fi
-
