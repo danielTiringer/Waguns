@@ -1,0 +1,99 @@
+<div class="container">
+	<h1>User Details</h1>
+	<div class="row">
+		<!-- Left Column -->
+		<div class=" col-xs-12 col-sm-5 md-4">
+			<ul class="list-group">
+				<li class="list-group-item text-muted" contenteditable="false">Profile</li>
+				<li class="list-group-item text-right">
+					<span class="float-left">
+						<strong class="">Name: </strong>
+					</span>
+					Joaquin Buenaobra
+				</li>
+				<li class="list-group-item text-right">
+					<span class="float-left">
+						<strong class="">Email: </strong>
+					</span>
+					danika@gmail.com
+				</li>
+				<li class="list-group-item text-right">
+					<span class="float-left">
+						<strong class="">Phone no.: </strong>
+					</span>
+					06-30
+				</li>
+				<li class="list-group-item text-right">
+					<span class="float-left">
+						<strong class="">Role: </strong>
+					</span>
+					user
+				</li>
+				<li class="list-group-item text-right">
+					<span class="float-left">
+						<strong class="">Birthday: </strong>
+					</span>
+					3 May 1981
+				</li>
+				<li class="list-group-item text-right">
+					<span class="float-left">
+						<strong class="">Licence no.: </strong>
+					</span>
+					daf388
+				</li>
+			</ul>
+			<!-- End Left Column -->
+		</div>
+
+		<div class="col-xs-12 col-sm-7 md-8">
+			<!-- Right Column -->
+			<ul class="list-group">
+				<li class="list-group-item text-muted" contenteditable="false">Active Rentals</li>
+				<li class="list-group-item text-muted" contenteditable="false">
+					<div class="row">
+						<div class="col-xs-4 col-sm-4">
+							<strong>Year</strong>
+							<p>2001</p>
+						</div>
+						<div class="col-xs-4 col-sm-4">
+							<strong>Make</strong>
+							<p>Toyota</p>
+						</div>
+						<div class="col-xs-4 col-sm-4">
+							<strong>Model</strong>
+							<p>Corolla</p>
+						</div>
+						<div class="col-xs-4 col-sm-4">
+							<strong>Rental Date</strong>
+							<p>2020-02-21</p>
+						</div>
+						<div class="col-xs-4 col-sm-4">
+							<strong>Return Date</strong>
+							<p>2020-02-28</p>
+						</div>
+						<div class="col-xs-4 col-sm-4">
+							<button type="button" class="btn btn-outline-info btn-rounded waves-effect btn-sm m-sm-1">Edit</button>
+							<button
+								type="button"
+								class="btn btn-outline-danger btn-rounded waves-effect btn-sm m-sm-1"
+								[swal]="deleteSwal"
+							>
+								Cancel
+								<swal
+									#deleteSwal
+									title="Delete Reservation"
+									text="Are you sure you want to delete this reservation?"
+									icon="question"
+									[showCancelButton]="true"
+									[focusCancel]="true"
+									(confirm)="onDelete(1)">
+								</swal>
+							</button>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<!-- End Right Column -->
+		</div>
+	</div>
+</div>
