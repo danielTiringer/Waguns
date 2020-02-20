@@ -131,7 +131,7 @@ class InventoryService {
   async rentCar(carId, userId, returnTimeExp, rentalTime = 0) {
     let availability = await this.checkIfCarAvailable(carId);
     if (!this.validateDate(rentalTime)) rentalTime = this.createDate();
-    await this.updateCar(carId, 1)
+    await this.updateCar(carId, 'availability', 'rented', 1)
     return new Promise((resolve, reject) => {
       if (availability > 0) return reject(new Error(409));
       if (!this.validateDate(returnTimeExp)) return reject(new Error(400))

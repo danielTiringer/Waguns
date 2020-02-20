@@ -6,11 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StatsComponent } from './components/stats/stats.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { ReeentACarComponent } from './components/reeent-a-car/reeent-a-car.component';
 import { AboutComponent } from './components/about/about.component';
+import { UserInventoryComponent } from './components/userinventory/userinventory.component';
+import { AuthinterceptorService } from './services/authinterceptor/authinterceptor.service';
 
 @NgModule({
   declarations: [
@@ -19,8 +20,8 @@ import { AboutComponent } from './components/about/about.component';
     LoginPageComponent,
     NavBarComponent,
     NotFoundComponent,
-    ReeentACarComponent,
-    AboutComponent
+    AboutComponent,
+    UserInventoryComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +29,9 @@ import { AboutComponent } from './components/about/about.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthinterceptorService, multi: true}
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
