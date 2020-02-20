@@ -49,7 +49,8 @@
               "node_modules/overlayscrollbars/js/jquery.overlayScrollbars.min.js",
               "node_modules/admin-lte/dist/js/adminlte.js",
               "node_modules/admin-lte/dist/js/pages/dashboard.js",
-              "node_modules/admin-lte/dist/js/demo.js"
+              "node_modules/admin-lte/dist/js/demo.js",
+              "node_modules/apexcharts/dist/apexcharts.min.js"
             ]
           },
           "configurations": {

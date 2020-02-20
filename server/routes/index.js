@@ -40,7 +40,7 @@ router.get('/api/inventory', auth.authenticateToken, inventoryController.fullInv
 
 router.get('/api/available', auth.authenticateToken, inventoryController.available);
 
-router.get('/api/metrics/:type', inventoryController.metrics);
+router.get('/api/metrics/:type', auth.authenticateToken, inventoryController.metrics);
 
 router.post('/api/rent', auth.authenticateToken, inventoryController.rent);
 

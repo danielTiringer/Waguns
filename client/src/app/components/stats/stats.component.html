@@ -1,1 +1,12 @@
 <h1>Statistics Component Routed</h1>
+
+<div id="chart" *ngIf="popChartReady">
+  <div style="text-align:center">
+    <apx-chart
+      [series]="popOptions.series"
+      [chart]="popOptions.chart"
+      [xaxis]="popOptions.xaxis"
+      [title]="popOptions.title"
+    ></apx-chart>
+  </div>
+</div>

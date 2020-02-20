@@ -14,7 +14,7 @@ export class Car {
   year: number;
   consumption: number;
   addedDate: number;
-​
+
   constructor(car) {
     this.id = car.id;
     this.plate = car.plate;

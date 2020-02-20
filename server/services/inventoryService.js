@@ -56,10 +56,17 @@ class InventoryService {
     return new Promise(async (resolve, reject) => {
       // List the most popular cars
       if (type === 'popular') {
-        const query = 'SELECT make, COUNT(make) FROM car GROUP BY make ORDER BY make DESC limit 10;';
+        const query = 'SELECT make, COUNT(make) FROM rental JOIN car on rental.carId = car.id GROUP BY make ORDER BY make DESC limit 10;';
         this.conn.query(query, [], (err, rows) => {
           if (err) reject(new Error(500));
-          return resolve(rows);
+          let res = rows.map(e => {
+            let obj = {
+              make: e['make'],
+              count: e['COUNT(make)']
+            }
+            return obj;
+          })
+          return resolve(res);
         });
       } else if (type === 'earning') {
         // Monthly gross income
