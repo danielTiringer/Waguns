@@ -4,6 +4,7 @@
   "description": "Reeent from us!",
   "main": "server.js",
   "scripts": {
+		"install": "npm --prefix ./client install",
 		"build": "npm --prefix ./client run build --prod",
     "test": "npm --prefix ./client run test"
   },
