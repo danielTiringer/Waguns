@@ -21,8 +21,10 @@ class InventoryService {
 
       this.conn.query(query, [], (err, rows) => {
         if (err) reject(new Error(500));
-        rows.forEach(e => e = new Car(e));
-        return resolve(rows);
+        let result = []
+        rows.forEach(e => result.push(new Car(e)));
+
+        return resolve(result);
       });
     });
   }
@@ -33,14 +35,25 @@ class InventoryService {
 
       this.conn.query(query, [], (err, rows) => {
         if (err) reject(new Error(500));
-        rows.forEach(e => e = new Car(e));
-        return resolve(rows);
+        let result = []
+        rows.forEach(e => result.push(new Car(e)));
+        return resolve(result);
       });
     });
   }
 
-  getMetrics(type) {
+  getRentalData() {
     return new Promise((resolve, reject) => {
+      const query = 'SELECT rental.rentalTime, rental.returnTimeAct, rental.km, car.consumption FROM rental INNER JOIN car on car.id = rental.carId WHERE returnTimeAct IS NOT NULL;';
+
+      this.conn.query(query, [], (err, rows) => {
+        err ? reject(new Error(500)) : resolve(rows)
+      })
+    })
+  }
+
+  getMetrics(type) {
+    return new Promise(async (resolve, reject) => {
       // List the most popular cars
       if (type === 'popular') {
         const query = 'SELECT make, COUNT(make) FROM car GROUP BY make ORDER BY make DESC limit 10;';
@@ -66,11 +79,23 @@ class InventoryService {
           });
           return resolve(datedEarnings);
         });
+      } else if (type === 'footprint') {
+        this.getRentalData()
+          .then((data) => {
+            let result = {};
+            data.forEach(e => {
+              let date = e.rentalTime.toString();
+              if (result.hasOwnProperty(date.substring(11, 15).concat('-' + date.substring(4, 7)))) {
+                result[date.substring(11, 15).concat('-' + date.substring(4, 7))] += e.km * e.consumption;
+              } else {
+                result[date.substring(11, 15).concat('-' + date.substring(4, 7))] = e.km * e.consumption;
+              }
+            })
+            return resolve(result)
+          }).catch((err) => reject(err))
       }
     });
   }
-  // Number of available cars over time
-  // const query = ';';
 
   async addCar(car, userId) {
     let role = await this.userService.checkUserRole(userId);
@@ -131,7 +156,7 @@ class InventoryService {
   async rentCar(carId, userId, returnTimeExp, rentalTime = 0) {
     let availability = await this.checkIfCarAvailable(carId);
     if (!this.validateDate(rentalTime)) rentalTime = this.createDate();
-    await this.updateCar(carId, 'availability', 'rented', 1)
+    await this.updateCar(carId, 'availability', 'rented', 1);
     return new Promise((resolve, reject) => {
       if (availability > 0) return reject(new Error(409));
       if (!this.validateDate(returnTimeExp)) return reject(new Error(400))
