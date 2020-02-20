@@ -53,13 +53,38 @@ let cars = Array(100).fill(1).map(el => {
 
 cars.forEach(car => {
 	let carQuery = `INSERT INTO car (plate, make, model, color, picture, fuel, category, rate, transmission, km, availability, year, addedDate, consumption) VALUES ("${car.plate}", "${car.make}", "${car.model}", "${car.color}", "${car.picture}", "${car.fuel}", "${car.category}", ${car.rate}, "${car.transmission}", ${car.km}, "${car.availability}", ${car.year}, ${car.addedDate}, ${car.consumption});`;
-	db.conn.query(carQuery, (err, res) => {
-		err ? console.error(err) : console.log(res);
-	});
+	// db.conn.query(carQuery, (err, res) => {
+	// 	err ? console.error(err) : console.log(res);
+	// });
 })
 
-let readQuery = "SELECT * FROM car;";
+const User = require('../models/userModel');
 
-db.conn.query(readQuery, (err, res) => {
-	err ? console.error(err) : console.log(res);
+
+let users = Array(100).fill(1).map(el => {
+	let user = new User({
+		username: faker.internet.email(),
+		password: 'Password123',
+		role: 'user',
+		phone: faker.phone.phoneNumber(),
+		dob: faker.date.past(),
+		license: faker.random.alphaNumeric(10),
+		name: faker.name.findName(),
+	})
+	console.log(user)
+	return user;
 });
+
+users.forEach(user => {
+	let userQuery = `INSERT INTO users (name, email, phone, dob, license) VALUES ("${user.name}", "${user.email}", "${user.phone}", "${user.dob}", "${user.license}");`;
+	// db.conn.query(userQuery, (err, res) => {
+	// 	err ? console.error(err) : console.log(res);
+	// });
+});
+
+
+let readQuery = "SELECT * FROM users;";
+
+// db.conn.query(readQuery, (err, res) => {
+// 	err ? console.error(err) : console.log(res);
+// });
