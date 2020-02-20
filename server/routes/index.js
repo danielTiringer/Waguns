@@ -34,4 +34,6 @@ router.get('/api/inventory', auth.authenticateToken, inventoryController.fullInv
 
 router.get('/api/available', auth.authenticateToken, inventoryController.available);
 
+router.get('/api/metrics/:type', inventoryController.metrics);
+
 module.exports = router;

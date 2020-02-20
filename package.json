@@ -4,7 +4,6 @@
   "description": "Reeent from us!",
   "main": "server/server.js",
   "scripts": {
-
     "build": "npm --prefix ./client run build --prod",
     "dev": "nodemon ./server/server.js",
     "install": "npm --prefix ./client install",
