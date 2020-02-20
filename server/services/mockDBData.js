@@ -25,32 +25,12 @@ let createCarTableQuery = `CREATE TABLE IF NOT EXISTS car (
 	consumption INTEGER
 );`;
 
-class Car {
-  constructor(car) {
-    this.id = car.id || 0;
-    this.plate = car.plate || 'aaa-111';
-    this.make = car.make || 'default';
-    this.model = car.model || 'default';
-    this.color = car.color || 'default';
-    this.picture = car.picture || null;
-    this.fuel = car.fuel || null;
-    this.category = car.category || 'A';
-    this.rate = car.rate || 0;
-    this.transmission = car.transmission || 'manual';
-    this.km = car.km || 0;
-    this.availability = car.availability || 'nope';
-    this.year = car.year || 0;
-    this.addedDate = car.addedDate || Date.now();
-    this.consumption = car.consumption || 11;
-  }
-}
-module.exports = { Car };
-
 
 // db.conn.query(createCarTableQuery, (err, res) => {
 // 	err ? console.error(err) : console.log(res);
 // });
 
+const Car = require('../models/carModel')
 
 let cars = Array(100).fill(1).map(el => {
 	return new Car({
