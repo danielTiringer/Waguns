@@ -1,16 +1,18 @@
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { StatsComponent } from "./components/stats/stats.component";
-import { NotFoundComponent } from "../app/components/not-found/not-found.component";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { StatsComponent } from './components/stats/stats.component';
+import { NotFoundComponent } from '../app/components/not-found/not-found.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
+import { AboutComponent } from './components/about/about.component';
 import { UserInventoryComponent } from './components/userinventory/userinventory.component';
-import { LoginPageComponent } from "./components/login-page/login-page.component";
-import { AboutComponent } from "./components/about/about.component";
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'nav/rent', pathMatch: 'full' },
   { path: '#', redirectTo: 'nav/rent', pathMatch: 'full' },
   { path: '404', component: NotFoundComponent },
+  { path: 'profile', component: ProfileComponent },
   {
     path: 'nav',
     component: NavBarComponent,
@@ -21,7 +23,6 @@ const routes: Routes = [
     ]
   },
   { path: 'login', component: LoginPageComponent },
-
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];
 
