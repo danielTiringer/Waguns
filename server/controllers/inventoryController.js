@@ -8,7 +8,7 @@ class InventoryController {
     this.getIdFromToken = getIdFromToken;
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
-    this.add = this.add.bind(this); 0
+    this.add = this.add.bind(this);
   }
 
   fullInventory(req, res) {
@@ -24,7 +24,6 @@ class InventoryController {
   }
 
   metrics(req, res) {
-    console.log(req.params.type)
     this.inventoryService.getMetrics(req.params.type)
       .then(data => res.status(200).json(data))
       .catch(() => res.status(500).json('Please try again later'));
