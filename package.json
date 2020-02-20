@@ -2,16 +2,20 @@
   "name": "waguns",
   "version": "1.0.0",
   "description": "Reeent from us!",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
 		"install": "npm --prefix ./client install",
 		"build": "npm --prefix ./client run build --prod",
-    "test": "npm --prefix ./client run test -- --watch=false"
+    "test": "npm --prefix ./client run test -- --watch=false",
+    "start": "nodemon src"
   },
   "author": "Volatile Sheep",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1"
   },
   "devDependencies": {
