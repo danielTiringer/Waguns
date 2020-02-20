@@ -4,8 +4,8 @@
   "description": "Reeent from us!",
   "main": "server/server.js",
   "scripts": {
-		"install": "npm --prefix ./client install",
-		"build": "npm --prefix ./client run build --prod",
+    "install": "npm --prefix ./client install",
+    "build": "npm --prefix ./client run build --prod",
     "test": "npm --prefix ./client run test -- --watch=false",
     "start": "nodemon src"
   },

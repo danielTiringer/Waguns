@@ -1,0 +1,86 @@
+.loginPage .row,
+.nav .navbar-text {
+  margin: 0px;
+}
+
+.navbar {
+  background-color: whitesmoke;
+  border-bottom: 1px solid black;
+}
+
+.card-header {
+  background-color: whitesmoke
+}
+
+.nav-link {
+  color: black;
+}
+
+.card {
+  width: 420px;
+  margin-top: 5%;
+  box-shadow: 0px 0px 10px 0px #000;
+}
+
+.form-group>p {
+  color: red;
+  font-size: 0.95em;
+}
+
+.form-group>h3,
+.bottomMessage>p {
+  text-align: center;
+  margin: 10px 0px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  width: 49%;
+}
+
+.buttons>a {
+  cursor: pointer;
+}
+
+.buttons>a,
+.form-group {
+  margin: 0px auto;
+}
+
+.form-group>h3 {
+  color: green;
+}
+
+.form-group {
+  margin-top: 5%;
+}
+
+.bottomMessage {
+  height: 31px;
+  margin-top: 0px;
+}
+
+.nav a {
+  border: 1px solid black;
+}
+
+@media only screen and (max-width: 416px) {
+  .loginPage .card {
+    width: 90%;
+  }
+  .nav>li {
+    visibility: hidden;
+    position: absolute;
+    color: green;
+  }
+  .nav {
+    justify-content: center;
+  }
+  h1 {
+    font-size: 1.5em;
+  }
+}
