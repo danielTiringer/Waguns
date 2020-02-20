@@ -4,10 +4,12 @@
   "description": "Reeent from us!",
   "main": "server/server.js",
   "scripts": {
-    "install": "npm --prefix ./client install",
+
     "build": "npm --prefix ./client run build --prod",
-    "test": "npm --prefix ./client run test -- --watch=false",
-    "start": "nodemon src"
+    "dev": "nodemon ./server/server.js",
+    "install": "npm --prefix ./client install",
+    "start": "nodemon src",
+    "test": "npm --prefix ./client run test -- --watch=false"
   },
   "author": "Volatile Sheep",
   "license": "ISC",
@@ -17,6 +19,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "faker": "^4.1.0",
     "mysql": "^2.18.1"
   },
   "devDependencies": {
