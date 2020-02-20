@@ -70,7 +70,6 @@ let users = Array(100).fill(1).map(el => {
 		licence: faker.random.alphaNumeric(10),
 		name: faker.name.findName(),
 	})
-	console.log(user)
 	return user;
 });
 
@@ -82,7 +81,7 @@ users.forEach(user => {
 });
 
 
-let readQuery = "SELECT * FROM rental;";
+let readQuery = "SELECT * FROM car;";
 
 db.conn.query(readQuery, (err, res) => {
 	err ? console.error(err) : console.log(res);

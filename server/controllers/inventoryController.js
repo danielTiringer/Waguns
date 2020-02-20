@@ -19,7 +19,8 @@ class InventoryController {
   }
 
   metrics(req, res) {
-    this.inventoryService.getMetrics()
+		console.log(req.params.type)
+    this.inventoryService.getMetrics(req.params.type)
       .then(data => res.status(200).json(data))
       .catch(() => res.status(500).json('Please try again later'));
   }
