@@ -50,4 +50,6 @@ router.post('/api/add', auth.authenticateToken, inventoryController.add);
 
 router.get('/api/user', auth.authenticateToken, userController.userData);
 
+router.put('/api/rent', auth.authenticateToken, inventoryController.return);
+
 module.exports = router;
