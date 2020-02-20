@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npm --prefix ./client run build --prod",
     "dev": "nodemon ./server/server.js",
+		"installClient": "npm --prefix ./client install",
     "start": "nodemon src",
     "test": "npm --prefix ./client run test -- --watch=false"
   },
