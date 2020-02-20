@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 class RegistrationService {
   constructor(conn) {
     this.conn = conn;
@@ -22,10 +24,22 @@ class RegistrationService {
       const query = 'SELECT * FROM users WHERE username = ?;';
 
       this.conn.query(query, [item.username], (err, row) => {
+				console.log(err)
         err ? reject(new Error(500)) : resolve(row);
       });
     });
   }
+
+	hashPassword(item) {
+		// Hash password
+		bcrypt.genSalt(10, (err, salt) => {
+			bcrypt.hash(item.password, salt, (err, hash) => {
+				if (err) { throw err; }
+				item.password = hash;
+			})
+		})
+		return item;
+	}
 
   insertUser(item) {
     return new Promise((resolve, reject) => {
@@ -45,6 +59,7 @@ class RegistrationService {
       } else if (item.password !== item.confirmPsw) {
         reject(new Error(400));
       } else if (!userData.length) {
+				item = this.hashPassword(item);
         resolve(this.insertUser(item));
       } else {
         reject(new Error(500));

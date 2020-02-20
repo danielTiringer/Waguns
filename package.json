@@ -4,14 +4,15 @@
   "description": "Reeent from us!",
   "main": "server/server.js",
   "scripts": {
-		"install": "npm --prefix ./client install",
-		"build": "npm --prefix ./client run build --prod",
+    "install": "npm --prefix ./client install",
+    "build": "npm --prefix ./client run build --prod",
     "test": "npm --prefix ./client run test -- --watch=false",
     "start": "nodemon src"
   },
   "author": "Volatile Sheep",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
