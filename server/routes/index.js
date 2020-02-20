@@ -30,6 +30,8 @@ router.post('/getToken', auth.RefreshedToken);
 
 router.post('/register', registrationController.register);
 
-router.get('/api/inventory', inventoryController.fullInventory);
+router.get('/api/inventory', auth.authenticateToken, inventoryController.fullInventory);
+
+router.get('/api/available', auth.authenticateToken, inventoryController.available);
 
 module.exports = router;
