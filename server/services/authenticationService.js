@@ -34,8 +34,9 @@ class AuthenticationService {
       if (err) {
         return res.status(403).json({ message: 'Token expired!' });
       }
-      const accessToken = jwt.sign({ userId: user.userId }, this.accTokSec, { expiresIn: `${accTokExp}` });
-      const refreshToken = jwt.sign({ userId: user.userId }, this.refTokSec, { expiresIn: `${refTokExp}` });
+      const accessToken = jwt.sign({ userId: user.userId, role: user.role }, this.accTokSec, { expiresIn: `${accTokExp}` });
+      const refreshToken = jwt.sign({ userId: user.userId, role: user.role }, this.refTokSec, { expiresIn: `${refTokExp}` });
+      console.log(accessToken)
       return res.json({ accessToken, refreshToken });
     });
   }
@@ -52,6 +53,12 @@ class AuthenticationService {
     const authHeader = req.headers.authorization;
     const token = authHeader.split(' ')[1];
     return jwt.decode(token).userId;
+  }
+
+  static getRoleFromToken(req) {
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(' ')[1];
+    return jwt.decode(token).role;
   }
 }
 

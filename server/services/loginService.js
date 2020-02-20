@@ -13,8 +13,8 @@ class LoginService {
       if (userInfo.length === 0) return reject(new Error(400));
       if (userInfo[0].username !== input.username || userInfo[0].password !== input.password) return reject(new Error(400));
       return resolve({
-        accessToken: this.generateAccessToken({ userId: userInfo[0].id }),
-        refreshToken: this.generateRefreshToken({ userId: userInfo[0].id }),
+        accessToken: this.generateAccessToken({ userId: userInfo[0].id, role: userInfo[0].role }),
+        refreshToken: this.generateRefreshToken({ userId: userInfo[0].id, role: userInfo[0].role }),
       });
     });
   }
