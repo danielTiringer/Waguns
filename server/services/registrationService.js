@@ -22,7 +22,6 @@ class RegistrationService {
   containsUser(item) {
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM users WHERE username = ?;';
-
       this.conn.query(query, [item.username], (err, row) => {
         err ? reject(new Error(500)) : resolve(row);
       });
