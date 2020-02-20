@@ -1,0 +1,42 @@
+sudo: required
+dist: trusty
+language: node_js
+node_js:
+ - stable
+
+services:
+  - docker
+
+notifications:
+  email:
+    recipients:
+      - tiringerdaniel@gmail.com
+    on_success: change # default: change
+    on_failure: always # default: always
+
+addons:
+apt:
+  sources:
+    - google-chrome
+  packages:
+    - google-chrome-stable
+
+before_install:
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
+before_script:
+  - npm run install
+  - npm install
+
+script:
+  - npm run test -- --watch=false
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    npm run build;
+    docker build -t danieltiringer/waguns -f Dockerfile .;
+    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
+    docker push danieltiringer/waguns;
+    fi
