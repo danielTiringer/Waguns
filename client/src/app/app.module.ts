@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ReeentACarComponent } from './components/reeent-a-car/reeent-a-car.component';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReeentACarComponent } from './components/reeent-a-car/reeent-a-car.comp
     LoginPageComponent,
     NavBarComponent,
     NotFoundComponent,
-    ReeentACarComponent
+    ReeentACarComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
