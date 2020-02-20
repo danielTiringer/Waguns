@@ -6,7 +6,6 @@
   "scripts": {
     "build": "npm --prefix ./client run build --prod",
     "dev": "nodemon ./server/server.js",
-    "install": "npm --prefix ./client install",
     "start": "nodemon src",
     "test": "npm --prefix ./client run test -- --watch=false"
   },
@@ -17,8 +16,8 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
     "faker": "^4.1.0",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1"
   },
   "devDependencies": {

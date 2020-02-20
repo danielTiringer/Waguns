@@ -1,5 +1,4 @@
-<ng-template #elseBlock><router-outlet></router-outlet></ng-template>
-<div class="wrapper" *ngIf="userId; else elseBlock">
+<div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -10,7 +9,7 @@
         ></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" routerLink="rent" class="nav-link"
+        <a href="#" routerLink="rent" class="nav-link"
           >Car inventory</a
         >
       </li>
@@ -35,13 +34,23 @@
         </div>
       </div>
     </form>
+
+    <ul class="navbar-nav ml-auto">
+      <!-- Messages Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" (click)="auth.logout()">Logout</a>
+      </li>
+    </ul>
   </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a
+      href="https://www.mad-sheep.co.uk/gfx/madsheep/car-day.png"
+      class="brand-link"
+    >
       <img
         src="https://www.mad-sheep.co.uk/gfx/madsheep/car-day.png"
         alt="vs Logo"
@@ -63,7 +72,7 @@
           />
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a class="d-block" *ngIf="user">{{ user.name }}</a>
         </div>
       </div>
 
@@ -86,7 +95,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item"> 
                 <a
                   href="pages/charts/chartjs.html"
                   routerLink="stats"

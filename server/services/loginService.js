@@ -11,7 +11,7 @@ class LoginService {
   async authorizeUser(input) {
     const userInfo = await this.registrationService.containsUser(input);
     return new Promise(async (resolve, reject) => {
-      if (userInfo.length === 0) return reject(new Error(400));
+			if (userInfo.length === 0) return reject(new Error(400));
       if (userInfo[0].username == input.username) {
         // Compare password
         await bcrypt.compare(input.password, userInfo[0].password)
