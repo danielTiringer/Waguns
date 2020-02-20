@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user';
+import { UserServiceService } from "./../../services/user-services/user-service.service";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -15,15 +16,22 @@ const httpOptions = {
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user: {};
+  private _user: User;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private userServiceService: UserServiceService) {
+    this.userServiceService.getUser().subscribe(data => {
+      this._user = data;
+    });
+  }
 
   ngOnInit(): void {
-    this.user = this.http.get<User>('http://localhost:3000/api/user', httpOptions);
   }
 
   onDelete(rental) {
     console.log('delete');
+  }
+
+  public get user() {
+    return this._user
   }
 }

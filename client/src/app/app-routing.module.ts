@@ -12,14 +12,14 @@ const routes: Routes = [
   { path: '', redirectTo: 'nav/rent', pathMatch: 'full' },
   { path: '#', redirectTo: 'nav/rent', pathMatch: 'full' },
   { path: '404', component: NotFoundComponent },
-  { path: 'profile', component: ProfileComponent },
   {
     path: 'nav',
     component: NavBarComponent,
     children: [
       { path: 'rent', component: UserInventoryComponent },
       { path: 'stats', component: StatsComponent },
-      { path: 'about', component: AboutComponent }
+      { path: 'about', component: AboutComponent },
+      { path: 'profile', component: ProfileComponent },
     ]
   },
   { path: 'login', component: LoginPageComponent },

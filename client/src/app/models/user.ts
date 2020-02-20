@@ -1,17 +1,17 @@
 export class User {
   name: string;
-  email: string;
+  username: string;
   phone: number;
   role: string;
   id: number;
-  dob: number;
+  DOB: number;
   license: number;
   constructor(user) {
     this.id = user.id;
     this.name = user.name;
-    this.email = user.email;
+    this.username = user.username;
     this.phone = user.phone;
-    this.dob = user.dob;
+    this.DOB = user.DOB;
     this.license = user.license;
   }
 }
