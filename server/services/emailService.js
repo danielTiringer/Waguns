@@ -5,7 +5,7 @@ class EmailService {
     this.main = this.main.bind(this);
   }
 
-  async main(email) {
+  async main(email, html, subject) {
     let transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -17,21 +17,13 @@ class EmailService {
       }
     });
 
-    let info = await transporter.sendMail({
-      from: '"us" <poopsapp@gmail.com>',
+    await transporter.sendMail({
+      from: '"Waguns" <poopsapp@gmail.com>',
       to: email,
-      subject: 'Your registration was successful',
+      subject: subject,
       text: '',
-      html: `
-      <body>
-        <h1>Dear user</h1>
-        <p>Thank you for registering to our fabulous site. That's so nice of you. You're probably our first user. Please
-        enjoy!</p>
-        <h3>With love,</h3>
-       <h2>Waguns</h2>
-      </body>`
+      html: html
     })
-    console.log('message sent', info.messageId)
   }
 }
 

@@ -1,11 +1,12 @@
 const Car = require('../models/carModel')
 
 class InventoryService {
-  constructor(conn, userService) {
+  constructor(conn, userService, emailService) {
     this.conn = conn;
     this.validateDate = this.validateDate.bind(this);
     this.createDate = this.createDate.bind(this);
     this.userService = userService;
+    this.emailService = emailService;
   }
 
   validateDate(input) {
@@ -145,7 +146,7 @@ class InventoryService {
 
       this.conn.query(query, [carId], (err, rows) => {
         if (err) return reject(new Error(500));
-        return resolve(rows.length);
+        return resolve(rows);
       });
     });
   }
@@ -160,17 +161,36 @@ class InventoryService {
     return yyyy + '-' + mm + '-' + dd;
   }
 
+  getOneCarData(carId) {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * FROM car WHERE id = ?;';
+
+      this.conn.query(query, [carId], (err, row) => {
+        err ? reject(err) : resolve(row);
+      });
+    });
+  }
+
   async rentCar(carId, userId, returnTimeExp, rentalTime = 0) {
-    let availability = await this.checkIfCarAvailable(carId);
+    const availibility = await this.checkIfCarAvailable(carId);
+    const carData = await this.getOneCarData(carId);
+
     if (!this.validateDate(rentalTime)) rentalTime = this.createDate();
     await this.updateCar(carId, 'availability', 'rented', 1);
+    const user = await this.userService.getUserData(userId);
+
     return new Promise((resolve, reject) => {
-      if (availability > 0) return reject(new Error(409));
+      if (availibility.length > 0) return reject(new Error(409));
       if (!this.validateDate(returnTimeExp)) return reject(new Error(400))
       const query = 'INSERT INTO rental(carId, userId, rentalTime, returnTimeExp) VALUES(?,?,?,?);';
 
       this.conn.query(query, [carId, userId, rentalTime, returnTimeExp], (err) => {
         if (err) return reject(new Error(500));
+        this.emailService.main(user.username, `<body>
+          <h1>Dear user</h1>
+          <p>Thank you for renting from us! You rented a ${carData[0].color} ${carData[0].make} ${carData[0].model} (plate: ${carData[0].plate}), a ${carData[0].year} ${carData[0].category} category ${carData[0].transmission} transmission ${carData[0].fuel} vehicle until ${returnTimeExp}. You can come and pick the car up, but we would like to ask you to please have the daily charge of $${carData[0].rate} ready in advance.</p>
+         <h2>Waguns</h2>
+        </body>`, 'Thank you for renting from us!')
         return resolve('ok');
       });
     });
