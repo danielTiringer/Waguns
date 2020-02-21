@@ -36,7 +36,23 @@ script:
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     npm run build;
-    docker build -t danieltiringer/waguns -f Dockerfile .;
+    touch .env
+    echo "$DB_HOST" >> .env
+    echo "$DB_USER" >> .env
+    echo "$DB_PASS" >> .env
+    echo "$DB_NAME" >> .env
+    echo "$DB_PORT" >> .env
+    echo "$ACCESS_TOKEN_SECRET" >> .env
+    echo "$REFRESH_TOKEN_SECRET" >> .env
+
     echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
-    docker push danieltiringer/waguns;
+
+    export REPO=danieltiringer/waguns;
+    export TAG=echo "latest";
+
+    docker build -f Dockerfile -t $REPO:$COMMIT .;
+    docker tag $REPO:$COMMIT $REPO:$TAG
+    docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+    docker push $REPO
+
     fi
