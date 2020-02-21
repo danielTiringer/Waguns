@@ -169,7 +169,7 @@ class InventoryService {
     const user = await this.userService.getUserData(userId);
 
     return new Promise((resolve, reject) => {
-      if (availibility != 'yes') return reject(new Error(409));
+      if (availibility[0].availability != 'yes') return reject(new Error(409));
       if (!this.validateDate(returnTimeExp)) return reject(new Error(400))
       const query = 'INSERT INTO rental(carId, userId, rentalTime, returnTimeExp) VALUES(?,?,?,?);';
 
