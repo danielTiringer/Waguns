@@ -1,9 +1,10 @@
 const bcrypt = require('bcryptjs');
 
 class RegistrationService {
-  constructor(conn) {
+  constructor(conn, mailService) {
     this.conn = conn;
-		this.hashPassword = this.hashPassword.bind(this)
+    this.hashPassword = this.hashPassword.bind(this);
+    this.mailService = mailService;
   }
 
   checkIfUserNameNumLatinLetters(input) { // eslint-disable-line
@@ -60,7 +61,8 @@ class RegistrationService {
       } else if (item.password !== item.confirmPsw) {
         reject(new Error(400));
       } else if (!userData.length) {
-				item = await this.hashPassword(item)
+        item = await this.hashPassword(item)
+        this.mailService.main(item.username)
         resolve(this.insertUser(item));
       } else {
         reject(new Error(500));
