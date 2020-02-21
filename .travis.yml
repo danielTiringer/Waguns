@@ -36,6 +36,7 @@ script:
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     npm run build;
+
     touch .env;
     echo "$DB_HOST" >> .env;
     echo "$DB_USER" >> .env;
