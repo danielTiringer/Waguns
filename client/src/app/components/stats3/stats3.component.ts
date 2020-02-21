@@ -49,7 +49,6 @@ export class Stats3Component implements OnInit {
 
   getCarbonMetrics() {
     this.stat.getAdminMetrics('footprint').subscribe(res => {
-      console.log(res);
       this.renderCarbonChart(res.months, res.emissions);
     })
   }
@@ -89,7 +88,7 @@ export class Stats3Component implements OnInit {
         curve: "smooth"
       },
       title: {
-        text: "Average High & Low Temperature",
+        text: "Expected vs Actual carbon footprint",
         align: "left"
       },
       grid: {
@@ -119,8 +118,8 @@ export class Stats3Component implements OnInit {
         position: "top",
         horizontalAlign: "right",
         floating: true,
-        offsetY: -25,
-        offsetX: -5
+        offsetY: -2,
+        offsetX: -35
       }
     };
     this.carbonChartReady = true;

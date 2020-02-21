@@ -1,4 +1,4 @@
-import { StatService } from "./../../services/stat/stat.service";
+import { StatService } from "./../../services/statservice/stat.service";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import {
   ChartComponent,

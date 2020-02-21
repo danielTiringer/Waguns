@@ -9,6 +9,7 @@ import { AboutComponent } from './components/about/about.component';
 import { UserInventoryComponent } from './components/userinventory/userinventory.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { Stats3Component } from './components/stats3/stats3.component';
+import { AuthguardService } from './services/authguard/authguard.service';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   {
     path: 'nav',
     component: NavBarComponent,
+    canActivate: [AuthguardService],
     children: [
       { path: 'rent', component: UserInventoryComponent },
       { path: 'stats', component: StatsComponent },
@@ -35,4 +37,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
