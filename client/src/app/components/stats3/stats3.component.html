@@ -1,0 +1,15 @@
+<div id="chart2" *ngIf="carbonChartReady">
+  <apx-chart
+    [series]="carbonOptions.series"
+    [chart]="carbonOptions.chart"
+    [xaxis]="carbonOptions.xaxis"
+    [stroke]="carbonOptions.stroke"
+    [colors]="carbonOptions.colors"
+    [dataLabels]="carbonOptions.dataLabels"
+    [legend]="carbonOptions.legend"
+    [markers]="carbonOptions.markers"
+    [grid]="carbonOptions.grid"
+    [yaxis]="carbonOptions.yaxis"
+    [title]="carbonOptions.title"
+  ></apx-chart>
+</div>
