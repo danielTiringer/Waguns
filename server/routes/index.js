@@ -11,12 +11,14 @@ const InventoryController = require('../controllers/inventoryController');
 const InventoryService = require('../services/inventoryService');
 const UserService = require('../services/userService');
 const UserController = require('../controllers/userController');
+const MailService = require('../services/emailService');
 
 let useddb = conn;
 let accTokSec = process.env.ACCESS_TOKEN_SECRET;
 let refTokSec = process.env.REFRESH_TOKEN_SECRET;
 
-const registrationService = new RegistrationService(useddb);
+const mailService = new MailService();
+const registrationService = new RegistrationService(useddb, mailService);
 const registrationController = new RegistrationController(registrationService);
 const auth = new Authentication(accTokSec, refTokSec);
 const loginService = new LoginService(useddb, registrationService, auth.generateAccessToken, auth.generateRefreshToken);
