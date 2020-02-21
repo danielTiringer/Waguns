@@ -150,7 +150,7 @@ class InventoryService {
     mm = mm < 10 ? '0' + mm : mm;
     let yyyy = date.getFullYear();
 
-    return yyyy + '-' + mm + '-' + dd
+    return yyyy + '-' + mm + '-' + dd;
   }
 
   async rentCar(carId, userId, returnTimeExp, rentalTime = 0) {
@@ -162,10 +162,26 @@ class InventoryService {
       if (!this.validateDate(returnTimeExp)) return reject(new Error(400))
       const query = 'INSERT INTO rental(carId, userId, rentalTime, returnTimeExp) VALUES(?,?,?,?);';
 
-      this.conn.query(query, [carId, userId, rentalTime, returnTimeExp], (err, rows) => {
+      this.conn.query(query, [carId, userId, rentalTime, returnTimeExp], (err) => {
         if (err) return reject(new Error(500));
         return resolve('ok');
       });
+    })
+  }
+
+  async returnCar(km, carId, userId) {
+    let role = await this.userService.checkUserRole(userId);
+    let date = this.createDate();
+
+    await this.updateCar(carId, 'availability', 'cleaning', 1)
+    return new Promise((resolve, reject) => {
+      if (role !== 'admin') return reject(new Error(418));
+      const query = 'UPDATE rental SET returnTimeAct = ?, km = ? WHERE carId = ? AND returnTimeAct IS NULL;';
+
+      this.conn.query(query, [date, km, carId], (err) => {
+        if (err) return reject(new Error(500));
+        return resolve('ok');
+      })
     })
   }
 }
