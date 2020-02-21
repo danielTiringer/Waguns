@@ -44,7 +44,7 @@ class InventoryService {
 
   getRentalData() {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT rental.rentalTime, rental.returnTimeAct, rental.km, car.consumption FROM rental INNER JOIN car on car.id = rental.carId WHERE returnTimeAct IS NOT NULL;';
+      const query = 'SELECT rental.rentalTime, rental.returnTimeAct, rental.km, car.consumption FROM rental INNER JOIN car on car.id = rental.carId WHERE returnTimeAct IS NOT NULL AND cancelled = 0;';
 
       this.conn.query(query, [], (err, rows) => {
         err ? reject(new Error(500)) : resolve(rows)
@@ -56,7 +56,7 @@ class InventoryService {
     return new Promise(async (resolve, reject) => {
       // List the most popular cars
       if (type === 'popular') {
-        const query = 'SELECT make, COUNT(make) FROM rental JOIN car on rental.carId = car.id GROUP BY make ORDER BY make DESC limit 10;';
+        const query = 'SELECT make, COUNT(make) FROM rental JOIN car on rental.carId = car.id GROUP BY make ORDER BY COUNT(make) DESC limit 10;';
         this.conn.query(query, [], (err, rows) => {
           if (err) reject(new Error(500));
           let res = rows.map(e => {
@@ -141,7 +141,7 @@ class InventoryService {
 
   checkIfCarAvailable(carId) {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT * FROM rental WHERE carId = ? AND returnTimeAct IS NULL;';
+      const query = 'SELECT * FROM rental WHERE carId = ? AND returnTimeAct IS NULL OR cancelled = 1;';
 
       this.conn.query(query, [carId], (err, rows) => {
         if (err) return reject(new Error(500));
@@ -173,7 +173,7 @@ class InventoryService {
         if (err) return reject(new Error(500));
         return resolve('ok');
       });
-    })
+    });
   }
 
   async returnCar(km, carId, userId) {
@@ -188,8 +188,34 @@ class InventoryService {
       this.conn.query(query, [date, km, carId], (err) => {
         if (err) return reject(new Error(500));
         return resolve('ok');
-      })
-    })
+      });
+    });
+  }
+
+  checkIfCarRentedBySameUser(carId, userId) {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * FROM rental WHERE carId = ? AND returnTimeAct IS NULL AND userId = ?;';
+
+      this.conn.query(query, [carId, userId], (err, row) => {
+        if (err) return reject(new Error(500));
+        return resolve(row);
+      });
+    });
+  }
+
+  async cancelRental(carId, userId) {
+    const check = await this.checkIfCarRentedBySameUser(carId, userId);
+    if (check == []) return Promise.reject(new Error(400))
+    await this.updateCar(carId, 'availability', 'yes', 1);
+
+    return new Promise((resolve, reject) => {
+      const query = 'UPDATE rental SET cancelled = 1 WHERE id = ?;';
+
+      this.conn.query(query, [check[0].id], (err) => {
+        if (err) return reject(new Error(500));
+        return resolve('ok');
+      });
+    });
   }
 }
 
