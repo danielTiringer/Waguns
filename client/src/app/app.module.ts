@@ -16,6 +16,7 @@ import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 import { EarnComponent } from "./components/earn/earn.component";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { Stats3Component } from './components/stats3/stats3.component';
+import { RegisterComponent } from './components/register-page/register-page.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { Stats3Component } from './components/stats3/stats3.component';
     AboutComponent,
     ProfileComponent,
     EarnComponent,
-    Stats3Component
+    Stats3Component,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

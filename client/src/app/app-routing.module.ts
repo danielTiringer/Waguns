@@ -10,6 +10,7 @@ import { UserInventoryComponent } from './components/userinventory/userinventory
 import { ProfileComponent } from './components/profile/profile.component';
 import { Stats3Component } from './components/stats3/stats3.component';
 import { AuthguardService } from './services/authguard/authguard.service';
+import { RegisterComponent } from './components/register-page/register-page.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
     ]
   },
   { path: 'login', component: LoginPageComponent },
+  { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];
 
