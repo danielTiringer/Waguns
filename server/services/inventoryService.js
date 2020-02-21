@@ -140,17 +140,6 @@ class InventoryService {
     });
   }
 
-  checkIfCarAvailable(carId) {
-    return new Promise((resolve, reject) => {
-      const query = 'SELECT * FROM rental WHERE carId = ? AND returnTimeAct IS NULL OR cancelled = 1;';
-
-      this.conn.query(query, [carId], (err, rows) => {
-        if (err) return reject(new Error(500));
-        return resolve(rows);
-      });
-    });
-  }
-
   createDate(date = new Date()) {
     let dd = date.getDay();
     dd = dd < 10 ? '0' + dd : dd;
@@ -172,7 +161,7 @@ class InventoryService {
   }
 
   async rentCar(carId, userId, returnTimeExp, rentalTime = 0) {
-    const availibility = await this.checkIfCarAvailable(carId);
+    const availibility = await this.getOneCarData(carId);
     const carData = await this.getOneCarData(carId);
 
     if (!this.validateDate(rentalTime)) rentalTime = this.createDate();
@@ -180,7 +169,7 @@ class InventoryService {
     const user = await this.userService.getUserData(userId);
 
     return new Promise((resolve, reject) => {
-      if (availibility.length > 0) return reject(new Error(409));
+      if (availibility != 'yes') return reject(new Error(409));
       if (!this.validateDate(returnTimeExp)) return reject(new Error(400))
       const query = 'INSERT INTO rental(carId, userId, rentalTime, returnTimeExp) VALUES(?,?,?,?);';
 
