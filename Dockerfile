@@ -1,7 +1,15 @@
-FROM nginx:alpine
+FROM node:13
 
 MAINTAINER Daniel Tiringer
 
-COPY public /usr/share/nginx/html
+WORKDIR /usr/src/app
 
-EXPOSE 80 443
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
