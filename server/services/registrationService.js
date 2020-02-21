@@ -45,9 +45,9 @@ class RegistrationService {
 
   insertUser(item) {
     return new Promise((resolve, reject) => {
-      const query = 'INSERT INTO users (username, password) VALUES (?, ?);';
+      const query = 'INSERT INTO users (username, password, phone, DOB, licence, name) VALUES (?, ?, ?, ?, ?, ?);';
 
-      this.conn.query(query, [item.username, item.password], (err, row) => {
+      this.conn.query(query, [item.email, item.password, item.phoneNumber, item.dateOfBirth, item.licenceNumber, item.name], (err, row) => {
         err ? reject(new Error(500)) : resolve(row.insertId);
       });
     });
@@ -56,13 +56,13 @@ class RegistrationService {
   async createUser(item) {
     const userData = await this.containsUser(item);
     return new Promise(async (resolve, reject) => {
-      if (!this.checkIfUserNameNumLatinLetters(item.username) || !this.checkIfPasswordNumLatinLetter(item.password)) {
+      if (!this.checkIfUserNameNumLatinLetters(item.email) || !this.checkIfPasswordNumLatinLetter(item.password)) {
         reject(new Error(400));
       } else if (item.password !== item.confirmPsw) {
         reject(new Error(400));
       } else if (!userData.length) {
         item = await this.hashPassword(item)
-        this.mailService.main(item.username, `
+        this.mailService.main(item.email, `
         <body>
           <h1>Dear user,</h1>
           <p>Thank you for registering. That's so nice of you. Please
