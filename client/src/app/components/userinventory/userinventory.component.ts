@@ -33,31 +33,32 @@ export class UserInventoryComponent implements OnInit {
       this.cars = res;
     }, error => {
       console.log(error);
-    })
+    });
   }
 
   selectVehicle(id: number) {
     this.selectedVehicle = id;
   }
-
   bookVehicle(id: number, startDate: Date, endDate: Date) {
     if (startDate && endDate && id) {
       this.inv.sendBooking(id, startDate, endDate).subscribe(res => {
         this.getVehicles();
-        setTimeout(() => {
-          this.bookingResponse = 'Thank you, your booking has been made, you will receive an email confirmation if I can implement it in the next 6 hours'
-        }, 1000);
-				Swal.fire({
-					icon: 'success',
-					title: 'Vehicle successfully reserved.',
-					showConfirmButton: false,
-					timer: 3500
-				})
+        Swal.fire({
+          icon: 'success',
+          title: 'Vehicle successfully reserved.',
+          showConfirmButton: false,
+          timer: 3500
+        });
       }, error => {
         console.log(error);
       });
     } else {
-      this.bookingResponse = 'You forgot to add a start and/or finish date';
+			Swal.fire({
+				icon: 'error',
+				title: 'The rental dates are missing.',
+				showConfirmButton: false,
+				timer: 3500
+			})
     }
   }
 }
