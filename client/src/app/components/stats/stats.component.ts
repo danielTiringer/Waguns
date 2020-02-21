@@ -1,4 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChartComponent,
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexXAxis,
+  ApexDataLabels,
+  ApexTitleSubtitle,
+  ApexStroke,
+  ApexGrid
+} from "ng-apexcharts";
+import { StatService } from 'src/app/services/statservice/stat.service';
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  grid: ApexGrid;
+  stroke: ApexStroke;
+  title: ApexTitleSubtitle;
+};
 
 @Component({
   selector: 'app-stats',
@@ -7,9 +28,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatsComponent implements OnInit {
 
-  constructor() { }
+  popChartReady: boolean;
 
-  ngOnInit(): void {
+  constructor(private stat: StatService) {
+    this.popChartReady = false;
   }
 
+  ngOnInit(): void {
+    this.getPopularMetrics();
+  }
+
+  @ViewChild("chart") chart: ChartComponent;
+  public popOptions: Partial<ChartOptions>;
+
+  getPopularMetrics() {
+    this.stat.getAdminMetrics('popular').subscribe(res => {
+      this.renderPopChart(res.makes, res.counts);
+    })
+  }
+
+  renderPopChart(makes: string[], counts: number[]) {
+    this.popOptions = {
+      series: [
+        {
+          name: "Number of rentals",
+          data: counts
+        }
+      ],
+      chart: {
+        height: 350,
+        type: "bar"
+      },
+      title: {
+        text: "Most Popular Brands"
+      },
+      xaxis: {
+        categories: makes
+      }
+    };
+    this.popChartReady = true;
+  }
 }

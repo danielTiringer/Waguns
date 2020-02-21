@@ -6,6 +6,7 @@ export class User {
   id: number;
   DOB: number;
   license: number;
+
   constructor(user) {
     this.id = user.id;
     this.name = user.name;
