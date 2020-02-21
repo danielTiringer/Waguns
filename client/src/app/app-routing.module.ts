@@ -1,3 +1,4 @@
+import { EarnComponent } from './components/earn/earn.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -7,6 +8,8 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { AboutComponent } from './components/about/about.component';
 import { UserInventoryComponent } from './components/userinventory/userinventory.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { Stats3Component } from './components/stats3/stats3.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'nav/rent', pathMatch: 'full' },
@@ -18,6 +21,8 @@ const routes: Routes = [
     children: [
       { path: 'rent', component: UserInventoryComponent },
       { path: 'stats', component: StatsComponent },
+      { path: 'earn', component: EarnComponent },
+      { path: 'stats3', component: Stats3Component },
       { path: 'about', component: AboutComponent },
       { path: 'profile', component: ProfileComponent },
     ]

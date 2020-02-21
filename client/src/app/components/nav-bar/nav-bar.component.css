@@ -7,3 +7,37 @@
   height: auto;
   width: 2rem;
 }
+
+@media only screen and (min-width: 578px) {
+  .mobil {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 577px) {
+  .desktop {
+    display: none;
+  }
+  .mobil,
+  .menu {
+    display: flex;
+  }
+  .heroes,
+  .menu {
+    margin: 5% 0;
+  }
+  .menu {
+    max-width: 65%;
+    justify-content: space-between;
+  }
+  .item {
+    margin: 0 auto;
+  }
+  .logout {
+    margin: 5% 5% 5% 0;
+    max-width: 10%;
+  }
+  .fas {
+    font-size: 5vw;
+  }
+}
