@@ -29,19 +29,19 @@ class RegistrationService {
     });
   }
 
-	hashPassword(item) {
-		return new Promise((resolve, reject) => {
+  hashPassword(item) {
+    return new Promise((resolve, reject) => {
 
-		// Hash password
-		bcrypt.genSalt(10, (err, salt) => {
-			bcrypt.hash(item.password, salt, (err, hash) => {
-				if (err) { throw err; }
-				item.password = hash;
-				resolve(item);
-			})
-		})
-		})
-	}
+      // Hash password
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(item.password, salt, (err, hash) => {
+          if (err) { throw err; }
+          item.password = hash;
+          resolve(item);
+        })
+      })
+    })
+  }
 
   insertUser(item) {
     return new Promise((resolve, reject) => {
@@ -62,7 +62,14 @@ class RegistrationService {
         reject(new Error(400));
       } else if (!userData.length) {
         item = await this.hashPassword(item)
-        this.mailService.main(item.username)
+        this.mailService.main(item.username, `
+        <body>
+          <h1>Dear user,</h1>
+          <p>Thank you for registering. That's so nice of you. Please
+          enjoy!</p>
+          <h3>With love,</h3>
+          <h2>Waguns</h2>
+        </body>`, 'Your registration was successful')
         resolve(this.insertUser(item));
       } else {
         reject(new Error(500));

@@ -25,7 +25,7 @@ const loginService = new LoginService(useddb, registrationService, auth.generate
 const loginController = new LoginController(loginService);
 const userService = new UserService(useddb);
 const userController = new UserController(userService, Authentication.getIdFromToken);
-const inventoryService = new InventoryService(useddb, userService);
+const inventoryService = new InventoryService(useddb, userService, mailService);
 const inventoryController = new InventoryController(inventoryService, Authentication.getIdFromToken);
 
 router.post('/register', registrationController.register);
@@ -52,7 +52,7 @@ router.post('/api/add', auth.authenticateToken, inventoryController.add);
 
 router.get('/api/user', auth.authenticateToken, userController.userData);
 
-router.put('/api/rent', auth.authenticateToken, inventoryController.return);
+router.put('/api/return', auth.authenticateToken, inventoryController.return);
 
 router.put('/api/cancel', auth.authenticateToken, inventoryController.cancel);
 

@@ -37,7 +37,7 @@ class InventoryController {
       500: 'Please try again later'
     }
     this.inventoryService.rentCar(req.body.carId, this.getIdFromToken(req), req.body.returnTimeExp, req.body.rentalTime)
-      .then(() => res.sendStatus(204))
+      .then((data) => res.sendStatus(204))
       .catch((err) => res.status(err.message).json(errResponse[err.message]));
   }
 
