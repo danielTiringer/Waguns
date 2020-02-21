@@ -9,6 +9,7 @@ require('dotenv').config();
 app.use(cors());
 
 app.use(express.json({ limit: '2mb' }));
+app.use(express.static(__dirname + '../../public'));
 
 const router = require('./routes/index');
 
