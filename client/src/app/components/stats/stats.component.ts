@@ -8,9 +8,6 @@ import {
   ApexTitleSubtitle,
   ApexStroke,
   ApexGrid,
-  ApexMarkers,
-  ApexYAxis,
-  ApexLegend
 } from "ng-apexcharts";
 import { StatService } from 'src/app/services/statservice/stat.service';
 
@@ -51,8 +48,7 @@ export class StatsComponent implements OnInit {
       console.log(err);
     })
   }
-
-
+  
   renderPopChart(makes: string[], counts: number[]) {
     this.popOptions = {
       series: [
