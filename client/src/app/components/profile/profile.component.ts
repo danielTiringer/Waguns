@@ -2,7 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user';
-import { UserServiceService } from "./../../services/user-services/user-service.service";
+import { UserServiceService } from './../../services/user-services/user-service.service';
+import Swal from 'sweetalert2';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit {
     this.userServiceService.getUser().subscribe(data => {
       this._user = data;
     });
-    this.getRes()
+    this.getRes();
   }
 
   ngOnInit(): void {
@@ -32,18 +33,24 @@ export class ProfileComponent implements OnInit {
   getRes() {
     this.userServiceService.getReservations().subscribe(data => {
       this.resData = data;
-    })
+    });
   }
 
   onDelete(carId) {
     this.userServiceService.cancelReservation(carId).subscribe(res => {
       this.getRes();
+			Swal.fire({
+				icon: 'success',
+				title: 'Your rental has been cancelled.',
+				showConfirmButton: false,
+				timer: 1500
+			})
     }, err => {
       console.log(err);
-    })
+    });
   }
 
   public get user() {
-    return this._user
+    return this._user;
   }
 }
