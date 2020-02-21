@@ -10,6 +10,7 @@ class InventoryController {
     this.delete = this.delete.bind(this);
     this.add = this.add.bind(this);
     this.return = this.return.bind(this);
+    this.cancel = this.cancel.bind(this);
   }
 
   fullInventory(req, res) {
@@ -76,6 +77,16 @@ class InventoryController {
       500: 'Please try again later'
     }
     this.inventoryService.returnCar(req.body.km, req.body.carId, this.getIdFromToken(req))
+      .then(() => res.sendStatus(204))
+      .catch((err) => res.status(err.message).json(errResponse[err.message]));
+  }
+
+  cancel(req, res) {
+    const errResponse = {
+      418: 'Not an admin',
+      500: 'Please try again later'
+    }
+    this.inventoryService.cancelRental(req.body.carId, this.getIdFromToken(req))
       .then(() => res.sendStatus(204))
       .catch((err) => res.status(err.message).json(errResponse[err.message]));
   }
