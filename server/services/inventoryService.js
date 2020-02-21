@@ -1,4 +1,4 @@
-const Car = require('../models/carModel')
+const Car = require('../models/carModel');
 
 class InventoryService {
   constructor(conn, userService, emailService) {

@@ -56,4 +56,6 @@ router.put('/api/return', auth.authenticateToken, inventoryController.return);
 
 router.put('/api/cancel', auth.authenticateToken, inventoryController.cancel);
 
+router.get('/api/usersrentals', auth.authenticateToken, userController.getRental);
+
 module.exports = router;
