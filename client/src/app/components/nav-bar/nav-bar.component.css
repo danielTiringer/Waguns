@@ -1,0 +1,9 @@
+.user-panel .admin {
+  height: auto;
+  width: 4rem;
+}
+
+.user-panel .user {
+  height: auto;
+  width: 2rem;
+}

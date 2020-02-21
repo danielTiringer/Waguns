@@ -63,16 +63,27 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex" *ngIf="user">
         <div class="image">
+          <ng-template [ngIf]="user.role == 'user'">
           <img
             src="https://previews.123rf.com/images/mischoko/mischoko1501/mischoko150100014/35955083-isolated-illustration-of-a-cartoon-sheep-eating-grass.jpg"
-            class="img-circle elevation-2"
+            class="img-circle elevation-2 user"
             alt="User Image"
+            routerLink="profile"
           />
+        </ng-template>
+        <ng-template [ngIf]="user.role == 'admin'">
+          <img
+            src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/matrix-cow-1574794543.jpg"
+            class="img-circle elevation-2 admin"
+            alt="User Image"
+            routerLink="profile"
+          />
+        </ng-template>
         </div>
         <div class="info">
-          <a class="d-block" *ngIf="user">{{ user.name }}</a>
+          <a class="d-block" routerLink="profile" >{{ user.name }}</a>
         </div>
       </div>
 
