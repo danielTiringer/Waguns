@@ -41,7 +41,7 @@ export class UserServiceService {
     const body = {
       carId: carid
     }
-    const request = this.http.post(`${environment.hostname}/api/cancel`, body, options)
+    const request = this.http.put(`${environment.hostname}/api/cancel`, body, options)
     
     return request.pipe(map(res => {
       return res
@@ -57,13 +57,16 @@ export class UserServiceService {
     });
 
     const options = {
-      headers: headers,
-      observe: 'response' as 'body'
+      headers: headers
     };
 
-    const request = this.http.get(`${environment.hostname}/api/usersrentals`, options)
+    const request = this.http.get<any>(`${environment.hostname}/api/usersrentals`, options)
     
     return request.pipe(map(res => {
+      res.forEach(e => {
+        e.rentalTime = e.rentalTime.substring(0, 10);
+        e.returnTimeExp = e.returnTimeExp.substring(0,10);
+      })
       return res
     }), catchError(err => {
       return throwError(err);
