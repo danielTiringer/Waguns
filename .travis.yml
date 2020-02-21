@@ -29,14 +29,16 @@ script:
 after_success:
   if [ "$TRAVIS_BRANCH" == "master" ]; then
     npm run build;
-    touch .env;
-    echo "$DB_HOST" >> .env;
+    touch /home/travis/build/danielTiringer/Waguns/.env;
+    echo "$DB_HOST" >> /home/travis/build/danielTiringer/Waguns/.env;
     echo "$DB_USER" >> .env;
     echo "$DB_PASS" >> .env;
     echo "$DB_NAME" >> .env;
     echo "$DB_PORT" >> .env;
     echo "$ACCESS_TOKEN_SECRET" >> .env;
     echo "$REFRESH_TOKEN_SECRET" >> .env;
+
+    cat .env;
 
     echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
 
