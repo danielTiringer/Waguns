@@ -53,27 +53,27 @@
         <li class="list-group-item text-muted" contenteditable="false">
           Active Rentals
         </li>
-        <li class="list-group-item text-muted" contenteditable="false">
+        <li class="list-group-item text-muted" contenteditable="false" *ngFor="let item of resData">
           <div class="row">
             <div class="col-xs-4 col-sm-4">
               <strong>Year</strong>
-              <p>2001</p>
+              <p>{{item.year}}</p>
             </div>
             <div class="col-xs-4 col-sm-4">
               <strong>Make</strong>
-              <p>Toyota</p>
+              <p>{{item.make}}</p>
             </div>
             <div class="col-xs-4 col-sm-4">
               <strong>Model</strong>
-              <p>Corolla</p>
+              <p>{{item.model}}</p>
             </div>
             <div class="col-xs-4 col-sm-4">
               <strong>Rental Date</strong>
-              <p>2020-02-21</p>
+              <p>{{item.rentalTime}}</p>
             </div>
             <div class="col-xs-4 col-sm-4">
               <strong>Return Date</strong>
-              <p>2020-02-28</p>
+              <p>{{item.returnTimeExp}}</p>
             </div>
             <div class="col-xs-4 col-sm-4">
               <button
@@ -95,7 +95,7 @@
                   icon="question"
                   [showCancelButton]="true"
                   [focusCancel]="true"
-                  (confirm)="onDelete(1)"
+                  (confirm)="onDelete(item.carId)"
                 >
                 </swal>
               </button>

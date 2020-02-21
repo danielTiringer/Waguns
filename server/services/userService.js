@@ -28,7 +28,7 @@ class UserService {
 
   getRentOfUser(userId) {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT year, make, model,rentalTime, returnTimeExp FROM rental INNER JOIN car ON rental.carId = car.id WHERE rental.userId = ? AND cancelled = 0 AND returnTimeAct IS NULL;'
+      const query = 'SELECT carId, year, make, model,rentalTime, returnTimeExp FROM rental INNER JOIN car ON rental.carId = car.id WHERE rental.userId = ? AND cancelled = 0 AND returnTimeAct IS NULL;'
 
       this.conn.query(query, [userId], (err, rows) => {
         if (err) return reject(new Error(500));

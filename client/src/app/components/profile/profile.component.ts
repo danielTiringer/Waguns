@@ -17,18 +17,30 @@ const httpOptions = {
 })
 export class ProfileComponent implements OnInit {
   private _user: User;
+  resData: any; //sorry about this being an <any>, but this whole service was done in the last 30 minutes and I didn't have time to make a new model
 
   constructor(private http: HttpClient, private userServiceService: UserServiceService) {
     this.userServiceService.getUser().subscribe(data => {
       this._user = data;
     });
+    this.getRes()
   }
 
   ngOnInit(): void {
   }
 
-  onDelete(rental) {
-    console.log('delete');
+  getRes() {
+    this.userServiceService.getReservations().subscribe(data => {
+      this.resData = data;
+    })
+  }
+
+  onDelete(carId) {
+    this.userServiceService.cancelReservation(carId).subscribe(res => {
+      this.getRes();
+    }, err => {
+      console.log(err);
+    })
   }
 
   public get user() {
