@@ -1,4 +1,4 @@
-FROM node:13
+t FROM node:13
 
 MAINTAINER Daniel Tiringer
 
